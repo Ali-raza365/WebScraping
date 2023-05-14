@@ -128,10 +128,11 @@ app.post("/screenshot", async (req, res) => {
 
      } catch (error) {
           console.log(error);
-          res.send({
-               mesaage: "Internal Server Error",
-               error: error
-          }).status(500);
+          // res.send({
+          //      mesaage: "Internal Server Error",
+          //      error: error
+          // }).status(500);  
+           res.send( error).status(500);
      }
 });
 
