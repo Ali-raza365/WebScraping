@@ -16,6 +16,7 @@
     "chrome-aws-lambda": "^6.0.0",
     "express": "^4.18.2",
     "firebase-admin": "^11.8.0",
+    "gyazo-api": "^0.3.1",
     "node-fetch": "^3.3.1",
     "puppeteer-core": "^6.0.0"
   },
