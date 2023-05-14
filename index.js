@@ -108,11 +108,12 @@ app.post("/screenshot", async (req, res) => {
           const page = await browser.newPage();
           await page.goto(url, { timeout:100000 });
           // await page.waitForLoadState('networkidle');
-          const screenshot = await page.screenshot({  path: "page.png", fullPage: true, type: "png", encoding: 'binary' , });
+          const filePath = path.join(__dirname, './page.png');
+          const screenshot = await page.screenshot({  path: filePath, fullPage: true, type: "png", encoding: 'binary' , });
 
           // const imageData = fs.readFileSync('./page.png');
 
-          const filePath = path.join(__dirname, './page.png');
+      
 
           const gyazoRes = await gyazoClient.upload(filePath);
           // console.log(gyazoRes?.data?);
