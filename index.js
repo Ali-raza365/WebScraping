@@ -1,5 +1,7 @@
 const express = require("express");
 const fs = require('fs');
+const path = require('path');
+
 const Gyazo = require('gyazo-api');
 
 let chrome = {};
@@ -104,14 +106,15 @@ app.post("/screenshot", async (req, res) => {
           let browser = await puppeteer.launch(options);
 
           const page = await browser.newPage();
-          await page.goto(url, { waitUntil: "networkidle0",timeout:100000 });
+          await page.goto(url, { timeout:100000 });
           // await page.waitForLoadState('networkidle');
-          const screenshot = await page.screenshot({  path: "page.png", fullPage: true, type: "png", encoding: 'binary' });
+          const screenshot = await page.screenshot({  path: "page.png", fullPage: true, type: "png", encoding: 'binary' , });
 
           // const imageData = fs.readFileSync('./page.png');
 
+          const filePath = path.join(__dirname, './page.png');
 
-          const gyazoRes = await gyazoClient.upload('./page.png');
+          const gyazoRes = await gyazoClient.upload(filePath);
           // console.log(gyazoRes?.data?);
           await browser.close();
           res.send({
