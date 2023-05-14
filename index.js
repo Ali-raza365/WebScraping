@@ -109,7 +109,7 @@ app.post("/screenshot", async (req, res) => {
           await page.goto(url, { timeout:100000 });
           // await page.waitForLoadState('networkidle');
           const filePath = path.join(__dirname, './page.png');
-          const screenshot = await page.screenshot({  path: filePath, fullPage: true, type: "png", encoding: 'binary' , });
+          const screenshot = await page.screenshot({  path: './page.png', fullPage: true, type: "png", encoding: 'binary' , });
 
           // const imageData = fs.readFileSync('./page.png');
 
