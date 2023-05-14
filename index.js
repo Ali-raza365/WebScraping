@@ -114,20 +114,21 @@ app.post("/screenshot", async (req, res) => {
           const page = await browser.newPage();
           await page.goto(url, { timeout:100000 });
           // await page.waitForLoadState('networkidle');
-          const filePath = path.join(__dirname, './page.png');
-          const screenshot = await page.screenshot({   fullPage: true, type: "png", encoding: 'binary' , });
+          // const filePath = path.join(__dirname, './page.png');
+          const screenshot = await page.screenshot({  path:`${uid}.png`,  fullPage: true, type: "png", encoding: 'binary' , });
 
-          fs.writeFileSync('screenshot.png', screenshot);
+          // fs.writeFileSync('screenshot.png', screenshot);
 
       
 
-          const gyazoRes = await gyazoClient.upload(filePath);
+          // const gyazoRes = await gyazoClient.upload(filePath);
           // console.log(gyazoRes?.data?);
           await browser.close();
           res.send({
                mesaage: "image upload successfully",
-               imageUrl: gyazoRes?.data?.url,
-               data: gyazoRes?.data
+               // imageUrl: gyazoRes?.data?.url,
+               image:"https://web-scraping-lyart.vercel.app/"+uid+'png',
+               // data: gyazoRes?.data
           }).status("200");
 
           
