@@ -121,7 +121,7 @@ app.post("/screenshot", async (req, res) => {
 
       
 
-          const gyazoRes = await gyazoClient.upload(screenshot);
+          const gyazoRes = await gyazoClient.upload(filePath);
           // console.log(gyazoRes?.data?);
           await browser.close();
           res.send({
