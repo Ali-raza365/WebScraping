@@ -2,6 +2,7 @@ const express = require("express");
 const fs = require('fs');
 const path = require('path');
 
+
 const Gyazo = require('gyazo-api');
 
 let chrome = {};
@@ -9,6 +10,7 @@ let puppeteer;
 
 const app = express();
 app.use(express.json());
+app.use(express.static(__dirname));
 
 
 const GYAZA_ACCESS_TOKEN = '7PzEIcS3B2pRB1sMOOjtzBrGR4PX04ZH0ZfMc9bxRmk'
@@ -37,6 +39,10 @@ const isValidUrl = (urlString) => {
      ); // validate fragment locator
      return !!urlPattern.test(urlString);
 };
+
+const uid = function(){
+     return Date.now().toString(36) + Math.random().toString(36).substr(2);
+ }
 
 app.post("/", async (req, res) => {
      let options = {};
@@ -109,13 +115,13 @@ app.post("/screenshot", async (req, res) => {
           await page.goto(url, { timeout:100000 });
           // await page.waitForLoadState('networkidle');
           const filePath = path.join(__dirname, './page.png');
-          const screenshot = await page.screenshot({  path: './page.png', fullPage: true, type: "png", encoding: 'binary' , });
+          const screenshot = await page.screenshot({   fullPage: true, type: "png", encoding: 'binary' , });
 
-          // const imageData = fs.readFileSync('./page.png');
+          fs.writeFileSync('screenshot.png', screenshot);
 
       
 
-          const gyazoRes = await gyazoClient.upload(filePath);
+          const gyazoRes = await gyazoClient.upload(screenshot);
           // console.log(gyazoRes?.data?);
           await browser.close();
           res.send({
