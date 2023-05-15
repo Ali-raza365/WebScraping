@@ -204,7 +204,7 @@ app.post("/screenshot", async (req, res) => {
      const page = await browser.newPage();
      await page.goto(url, {
           timeout: 200000,
-          // waitUntil: 'networkidle0 ',
+          waitUntil: 'networkidle2',
           omitBackground: true,
      });
      // Navigate to the web page you want to take a screenshot of
